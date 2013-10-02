@@ -67,6 +67,8 @@ class WebDavStorage(Storage):
         """
         Returns the total size, in bytes, of the file specified by name.
         """
+        resp = self.session.head(self._build_url(name))
+        return int(resp['content-lenght'])
 
     def url(self, name):
         """
