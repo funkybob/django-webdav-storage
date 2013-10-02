@@ -18,5 +18,12 @@ http://wiki.nginx.org/HttpDavModule
 Settings
 --------
 
-`WEBDAV_ROOT` e.g. "http://media.mysite.com/path/to/media/"
-`WEBDAV_PUBLIC` (Optional) the public root for accessing files.
+`WEBDAV_ROOT`
+
+Where the storage should pass requests.
+e.g. "http://media.mysite.com/path/to/media/"
+
+`WEBDAV_PUBLIC`
+
+(Optional) the public root for accessing files.
+Defaults to `WEBDAV_ROOT`
