@@ -77,3 +77,30 @@ class WebDavStorage(Storage):
         """
         return self._build_url(name, external=True)
 
+    ### django-filebrowser extensions
+
+    def isdir(self, name):
+        resp = self.session.head(self._build_url(name))
+        if resp.status_code == 404:
+            return False
+        # ?
+
+    def isfile(self, name):
+        resp = self.session.head(self._build_url(name))
+        if resp.status_code == 404:
+            return False
+        # ?
+
+    def move(self, old_file_name, new_file_name, allow_overwrite=False):
+        resp = self.session.move(self._build_url(old_file_name),
+            headers={
+                'Destination': self._build_url(new_file_name),
+            }
+        )
+        return resp.status_code == 201
+
+    def makedirs(self, name):
+        return True
+
+    def rmtree(self, name):
+        return True
