@@ -1,6 +1,7 @@
 
 from django.conf import settings
 from django.core.files.storage import Storage
+from django.utils.functional import cached_property
 
 import requests
 from requests.exceptions import RequestException
