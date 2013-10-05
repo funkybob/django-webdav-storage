@@ -29,7 +29,8 @@ class WebDavStorage(Storage):
         return urljoin(WEBDAV_PUBLIC if external else WEBDAV_ROOT, name)
 
     def _request(self, method, name, **kwargs):
-        return self.session.request(method, self._build_url(name), **kwargs)
+        resp = self.session.request(method, self._build_url(name), **kwargs)
+        return resp
 
     def _open(self, name, mode='rb'):
         """
@@ -46,6 +47,7 @@ class WebDavStorage(Storage):
         from the beginning.
         """
         resp = self._request('PUT', name, data=content)
+        return name
 
     def delete(self, name):
         """
@@ -59,7 +61,7 @@ class WebDavStorage(Storage):
         storage system, or False if the name is available for a new file.
         """
         resp = self._request('HEAD', name)
-        return resp.status_code != 404
+        return resp.status_code == 200
 
     def listdir(self, path):
         """
